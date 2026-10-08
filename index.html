@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Dashboard de iniciativas: seguimiento de compras, presupuesto y flujo de caja desde Excel.">
+  <meta name="theme-color" content="#31869B">
+  <title>Compras Estratégicas | Dashboard de Iniciativas</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script type="module" src="js/app.mjs"></script>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand"><div class="brand-icon">R<span>•</span></div><div><strong>Grupo Ramos</strong><small>COMPRAS · INICIATIVAS</small></div></div>
+    <div class="side-label">ANÁLISIS</div>
+    <nav class="navigation" aria-label="Secciones">
+      <button data-view="resumen" class="nav-btn active"><span class="nav-symbol">▦</span> Resumen ejecutivo</button>
+      <button data-view="compras" class="nav-btn"><span class="nav-symbol">▤</span> Seguimiento de compras</button>
+      <button data-view="presupuesto" class="nav-btn"><span class="nav-symbol">▥</span> Presupuesto vs. Real</button>
+      <button data-view="flujo" class="nav-btn"><span class="nav-symbol">▥</span> Flujo de caja</button>
+      <button data-view="comparativo" class="nav-btn"><span class="nav-symbol">▥</span> Comparativo de proyectos</button>
+    </nav>
+    <div class="sidebar-bottom"><div class="tip-icon">i</div><div><strong>Archivos locales</strong><p>Los Excel se procesan en este navegador. No se envían al repositorio.</p></div></div>
+    <div class="side-footer">Grupo Ramos · Activos Fijos</div>
+  </aside>
+  <div class="main-area">
+    <header class="topbar">
+      <div class="topbar-title"><button class="mobile-menu" id="menuBtn" aria-label="Abrir menú">☰</button><span class="topbar-section">INICIATIVAS</span><span class="topbar-sep">/</span><span id="crumb">Resumen ejecutivo</span></div>
+      <div class="top-actions"><button class="btn light" id="printBtn" title="Imprimir o guardar vista en PDF"><span aria-hidden="true">⎙</span> <span class="hide-mobile">Exportar PDF</span></button><button class="btn primary" id="uploadBtn">＋ Cargar Excel</button><input id="fileInput" type="file" accept=".xlsx,.xls" multiple hidden></div>
+    </header>
+    <main class="content">
+      <section class="intro"><div><div class="eyebrow">PORTAFOLIO DE INICIATIVAS</div><h1 id="pageTitle">Resumen ejecutivo</h1><p id="pageSubtitle">Vista integral de compras, inversión y desembolsos programados.</p></div><div class="last-update" id="lastUpdate">Sin archivos cargados</div></section>
+      <section class="project-strip panel"><div class="project-filter"><label for="projectSelect">PROYECTO</label><select id="projectSelect"><option value="__all">Todos los proyectos</option></select></div><div class="project-filter"><label for="searchInput">BUSCAR</label><input id="searchInput" type="search" placeholder="Partida, ítem, proveedor..." autocomplete="off"></div><div class="project-count"><span class="project-count-num" id="projectCount">0</span><span>iniciativas<br>cargadas</span></div><button id="manageBtn" class="btn outline">Gestionar proyectos</button></section>
+      <div id="noticeArea" aria-live="polite"></div>
+      <div id="dashboardBody"></div>
+      <footer class="footer">Dashboard de Iniciativas · Los importes se muestran según la moneda de cada hoja. Comprueba las advertencias de conciliación antes de compartir reportes.</footer>
+    </main>
+  </div>
+</div>
+<div id="modalBackdrop" class="modal-backdrop" hidden>
+  <div class="modal panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-head"><div><div class="eyebrow">ADMINISTRACIÓN</div><h2 id="modalTitle">Proyectos cargados</h2></div><button id="modalClose" class="icon-btn" aria-label="Cerrar">✕</button></div><p class="muted">Renombra iniciativas, define el año inicial del flujo o elimina archivos importados en este navegador.</p><div id="projectManager"></div></div>
+</div>
+<div id="toast" role="status" class="toast" hidden></div>
+</body>
+</html>
