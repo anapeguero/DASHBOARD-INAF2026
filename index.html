@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#026d96"><meta name="description" content="Dashboard de iniciativas de Grupo Ramos: compras, presupuestos y flujo de caja por proyecto.">
+<title>Iniciativas de Inversión | Grupo Ramos</title>
+<link rel="icon" type="image/png" href="assets/favicon-ramos.png"><link rel="apple-touch-icon" href="assets/favicon-ramos.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<script defer src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script type="module" src="js/app.mjs"></script>
+</head>
+<body>
+<div class="shell">
+<aside class="sidebar" id="sidebar">
+  <div class="logo-block"><div class="sidebar-logo-frame"><img src="assets/logo-grupo-ramos.png" alt="Logo Grupo Ramos"></div></div>
+  <nav class="sidebar-nav" aria-label="Secciones del dashboard">
+    <button class="nav-link active" data-view="resumen"><span class="nav-ico" data-icon="overview"></span><span>Resumen Ejecutivo</span></button>
+    <button class="nav-link" data-view="compras"><span class="nav-ico" data-icon="purchase"></span><span>Seguimiento de<br>Compras</span></button>
+    <button class="nav-link" data-view="presupuesto"><span class="nav-ico" data-icon="budget"></span><span>Presupuesto vs. Real</span></button>
+    <button class="nav-link" data-view="flujo"><span class="nav-ico" data-icon="flow"></span><span>Flujo de Caja</span></button>
+    <button class="nav-link" data-view="comparativo"><span class="nav-ico" data-icon="compare"></span><span>Comparativo<br>Proyectos</span></button>
+    <button class="nav-link" data-view="datos"><span class="nav-ico" data-icon="data"></span><span>Data General</span></button>
+  </nav>
+  <div class="sidebar-foot"><div>Última actualización<br><strong id="sideUpdate">Sin archivos</strong></div><div>Área de Compras de<br>Activos Fijos</div></div>
+</aside>
+<div class="main">
+  <header class="header">
+    <button class="mobile-toggle" id="menuBtn" aria-label="Mostrar menú">☰</button>
+    <div class="header-title"><img class="header-brand-logo" src="assets/logo-grupo-ramos.png" alt="Grupo Ramos"><div class="header-title-copy"><h1>Iniciativas de Inversión</h1><p>Compras Estratégicas <span>|</span> Grupo Ramos</p></div></div>
+    <div class="filters">
+      <label class="filter-field project-field">Proyecto<select id="projectSelect"><option value="__all">Todos los proyectos</option></select></label>
+      <label class="filter-field format-field">Formato<select id="formatSelect"><option value="__all">Todos</option></select></label>
+      <label class="filter-field type-field">Tipo de proyecto<select id="typeSelect"><option value="__all">Todos</option></select></label>
+      <label class="filter-field short-field">Año<select id="yearSelect"><option value="__all">Todos</option></select></label>
+      <label class="filter-field short-field">Trimestre<select id="quarterSelect"><option value="__all">Todos</option><option value="1">T1</option><option value="2">T2</option><option value="3">T3</option><option value="4">T4</option></select></label>
+    </div>
+    <button class="export-pdf" id="printBtn"><span class="icon-inline" data-icon="pdf"></span>Descargar PDF</button>
+  </header>
+  <div class="workbar" id="workbar">
+    <span class="workbar-caption" id="dataStatus">Modo demostración · Importa un Excel para analizar datos reales</span>
+    <div class="workbar-actions"><button class="secondary-btn" id="manageBtn">Gestionar proyectos</button><button class="upload-btn" id="uploadBtn"><span>＋</span> Cargar Excel</button><input type="file" id="fileInput" accept=".xlsx,.xls" multiple hidden></div>
+  </div>
+  <main class="main-body">
+    <div id="notices" aria-live="polite"></div>
+    <div id="dashboardBody"></div>
+    <div class="copyright">Grupo Ramos · Compras de Activos Fijos · El dashboard se procesa localmente en tu navegador. No publiques archivos confidenciales en GitHub.</div>
+  </main>
+</div>
+</div>
+<div id="modalBackdrop" class="modal-backdrop" hidden>
+ <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-header"><h2 id="modalTitle">Gestionar iniciativas</h2><button id="modalClose" aria-label="Cerrar">✕</button></div><p>Modifica el nombre, formato, tipo de proyecto y año inicial del flujo de caja. Los cambios quedan en este navegador.</p><div id="projectManager"></div></section>
+</div>
+<div id="toast" class="toast" role="status" hidden></div>
+</body>
+</html>
