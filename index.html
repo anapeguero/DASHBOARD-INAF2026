@@ -37,6 +37,72 @@
 
 
 [hidden]{display:none!important}
+
+/* Nueva pestaña Comentarios: mantiene estilo de paneles y tablas existente. */
+.comments-table{width:100%;table-layout:fixed;}
+.comments-table th{white-space:normal;}
+.comments-table td{white-space:normal!important;vertical-align:top;line-height:1.5;padding:11px 12px;overflow-wrap:anywhere;}
+.comments-table .comment-hito{font-weight:600;color:#153c52;}
+.comments-table .comment-description{white-space:pre-line;color:#345266;}
+.comments-table .comment-no-data{color:#9baab2;}
+.comments-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+.comments-actions select{height:34px;border:1px solid #cddfe6;border-radius:7px;padding:6px 10px;color:#16455a;background:#fff;min-width:160px;max-width:240px;font-size:11px;}
+.comments-actions input{width:min(330px,100%);}
+.comments-stat{font-size:12px;color:#597482;}
+.comments-stat strong{color:#14556a;}
+@media(max-width:720px){.comments-table{min-width:720px;}.comments-actions{width:100%;}.comments-actions input{flex:1;min-width:165px;}.comments-actions select{max-width:none;}}
+@media print{.comments-actions{display:none}.comments-table td{white-space:normal!important;}}
+
+/* Sección Medir y Aprender: solo afecta a esta nueva pestaña. */
+.learning-shell{display:grid;gap:14px}
+.learning-intro{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:17px 20px}
+.learning-intro h2{font-size:25px;line-height:1.14;margin:0 0 6px;font-weight:800;color:#0b4058}
+.learning-intro p{color:#6f8998;font-size:13px;line-height:1.5;margin:0}
+.learning-intro-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.learning-small{color:#678595;font-size:11px}
+.learning-btn{background:#057da8;color:#fff;border:1px solid #057da8;border-radius:6px;padding:10px 14px;font-weight:700;font-size:12px;white-space:nowrap}
+.learning-btn:hover{background:#075e80}
+.learning-btn.alt{background:#fff;border-color:#c5dae4;color:#135a73}
+.learning-btn.alt:hover{background:#e8f4f7}
+.learning-feature{display:grid;grid-template-columns:minmax(220px,38%) minmax(0,1fr);gap:16px;padding:14px;align-items:stretch}
+.learning-cover{position:relative;background:linear-gradient(135deg,#066f9a,#0b475c 66%,#6ebad2);border-radius:8px;min-height:185px;overflow:hidden;display:flex;justify-content:center;align-items:center}
+.learning-cover img{width:100%;height:100%;position:absolute;inset:0;object-fit:cover;display:block}
+.learning-cover.no-image:before{content:'✦';font-size:67px;color:#ffffff8e;line-height:1}
+.learning-feature .learning-cover{min-height:230px}
+.learning-feature-body{display:flex;flex-direction:column;gap:9px;justify-content:center;padding:10px 10px 10px 0;min-width:0}
+.learning-feature-body h3{font-size:23px;color:#093f55;line-height:1.18;margin:0;overflow-wrap:anywhere}
+.learning-feature-body p{font-size:13px;color:#536e7d;line-height:1.6;margin:0;white-space:pre-wrap;overflow-wrap:anywhere}
+.learning-meta{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:11px;color:#66818e}
+.learning-label{display:inline-flex;align-items:center;background:#e1f4f9;border-radius:40px;color:#086e91;font-size:10px;font-weight:800;padding:5px 9px}
+.learning-feature-body .learning-btn{align-self:flex-start;margin-top:6px}
+.learning-controls{padding:13px;display:grid;grid-template-columns:minmax(160px,1.5fr) repeat(3,minmax(110px,1fr));gap:10px}
+.learning-field{display:grid;gap:5px;min-width:0;font-size:11px;color:#345367;font-weight:700}
+.learning-field input,.learning-field select,.learning-field textarea{width:100%;min-width:0;box-sizing:border-box;border:1px solid #ccdee7;border-radius:6px;background:#fff;padding:9px;color:#143e54;font-size:12px;font-family:inherit}
+.learning-field textarea{resize:vertical;min-height:80px}
+.learning-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.learning-card{display:flex;flex-direction:column;min-width:0;padding:11px;gap:10px}
+.learning-card .learning-cover{min-height:150px;height:160px}
+.learning-card h3{margin:0;font-size:16px;color:#0e4058;line-height:1.3;overflow-wrap:anywhere}
+.learning-card p{color:#627b89;font-size:12px;line-height:1.53;white-space:pre-wrap;margin:0;overflow-wrap:anywhere}
+.learning-card .learning-btn{margin-top:auto;text-align:center}
+.learning-empty{text-align:center;padding:38px 20px}
+.learning-empty h3{font-size:19px;color:#0d435c;margin:0 0 10px}
+.learning-empty p{font-size:13px;line-height:1.65;color:#627c8a;max-width:640px;margin:0 auto 15px}
+.learning-editor{padding:19px;display:grid;gap:15px}
+.learning-editor h3{color:#0c455e;font-size:19px;margin:0}
+.learning-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.learning-full{grid-column:1/-1}
+.learning-steps{background:#eef7fa;border:1px solid #d1eaf3;border-radius:7px;padding:12px 15px;color:#2a6176;font-size:12px;line-height:1.6}
+.learning-steps a{color:#087caa}
+.learning-step-list{margin:6px 0 0;padding-left:20px}
+.learning-post-info{font-size:11px;color:#557888;margin:0}
+.learning-post-info.warn{color:#a76822}
+.learning-top-mark{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
+.learning-top-mark h3{font-size:16px;color:#0c4158;margin:0}
+@media(max-width:1180px){.learning-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.learning-controls{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:690px){.learning-intro{flex-direction:column;align-items:stretch}.learning-intro-actions{justify-content:flex-start}.learning-feature{grid-template-columns:1fr}.learning-feature-body{padding:2px 4px 9px}.learning-feature .learning-cover{min-height:185px}.learning-grid{grid-template-columns:1fr}.learning-controls{grid-template-columns:1fr}.learning-form{grid-template-columns:1fr}}
+@media print{.learning-intro-actions,.learning-controls,.learning-editor,.learning-btn.alt{display:none!important}.learning-card,.learning-feature{break-inside:avoid}.learning-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
 </style>
 
 
@@ -52,6 +118,8 @@
     <button class="nav-link" data-view="flujo"><span class="nav-ico" data-icon="flow"></span><span>Flujo de Caja</span></button>
     <button class="nav-link" data-view="comparativo"><span class="nav-ico" data-icon="compare"></span><span>Comparativo<br>Proyectos</span></button>
     <button class="nav-link" data-view="datos"><span class="nav-ico" data-icon="data"></span><span>Data General</span></button>
+    <button class="nav-link" data-view="medir"><span class="nav-ico" data-icon="learn"></span><span>Medir y Aprender</span></button>
+    <button class="nav-link" data-view="comentarios"><span class="nav-ico" data-icon="comments"></span><span>Comentarios</span></button>
   </nav>
   <div class="sidebar-foot"><div>Última actualización<br><strong id="sideUpdate">Sin archivos</strong></div><div>Área de Compras de<br>Activos Fijos</div></div>
 </aside>
@@ -84,7 +152,7 @@
 </div>
 <div id="toast" class="toast" role="status" hidden></div>
 <script>
-/* Lector de las tres hojas de iniciativas. Sin comunicaciones a servidores. */
+/* Lector de las hojas de iniciativas. Procesamiento local de archivos. */
 const clean = v => String(v ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/\s+/g,' ').trim();
 const numeric = v => {
   if (typeof v === 'number') return Number.isFinite(v) ? v : null;
@@ -164,74 +232,55 @@ function financialCodeAndName(row){
   return null;
 }
 function findBudgetAmountColumns(rows){
-  const totalLine=first(rows,/total general estimado/,120);
-  const tr=totalLine>=0?rows[totalLine]||[]:[];
-  const sample=[];
-  let codes=[],labelColumns=[];
-  for(let i=0;i<Math.min(rows.length,450);i++){
+  /* Usa preferentemente la fila TOTAL GENERAL ESTIMADO: suele contener
+     los dos importes exactos, incluso cuando hay columnas intercaladas
+     que solo dicen USD$ y encabezados fusionados. */
+  const totalLine=first(rows,/total general estimado/,150);
+  const grand=totalLine>=0?(rows[totalLine]||[]):[];
+  const headers={plan:[],real:[]};
+  for(let i=0;i<Math.min(60,rows.length);i++){
     const r=rows[i]||[];
-    const item=financialCodeAndName(r);
-    let category=null;
-    for(let j=0;j<=3;j++)if(budgetCategoryName(at(r,j)))category=j;
-    if(item){codes.push(item.codeColumn);labelColumns.push(item.nameColumn);sample.push(r);}
-    else if(category!==null)sample.push(r);
-  }
-  const codeColumn=codes.length?codes.sort((a,b)=>a-b).reduce((best)=>best):null;
-  const currencyColumns=[];
-  const headerPositions={plan:[],real:[]};
-  for(let row=0;row<Math.min(rows.length,50);row++){
-    const r=rows[row]||[];
-    for(let col=0;col<Math.min(r.length,15);col++){
-      const value=clean(at(r,col));
-      if(value==='presupuestado'||value==='presupuesto'||value==='plan')headerPositions.plan.push(col);
-      if(value==='real'||value==='ejecutado')headerPositions.real.push(col);
+    for(let j=0;j<Math.min(17,r.length);j++){
+      const v=clean(at(r,j));
+      if(/^(presupuestado|presupuesto|plan)$/.test(v))headers.plan.push(j);
+      if(/^(real|ejecutado)$/.test(v))headers.real.push(j);
     }
   }
-  // Las columnas monetarias no siempre coinciden con la posición del encabezado,
-  // porque se usan columnas intercaladas para 'USD$'.
-  const candidates=[];
-  for(let p=2;p<=13;p++)for(let q=p+1;q<=Math.min(p+6,14);q++)candidates.push({plan:p,real:q,name:`${excelCol(p)}/${excelCol(q)}`});
-  const firstData=Math.min(rows.length,500);
-  const rowQuality=r=>{
-    const c=financialCodeAndName(r);
-    return c&&c.kind==='parent'?3:c?1:0;
+  const mainRows=[];
+  for(let i=0;i<Math.min(rows.length,600);i++){
+    const r=rows[i]||[];
+    let isCategory=false;
+    for(let j=0;j<4;j++)if(budgetCategoryName(at(r,j)))isCategory=true;
+    if(financialCodeAndName(r)||isCategory)mainRows.push(r);
+  }
+  const nearHeader=(cols,c)=>{
+    if(!cols.length)return 0;
+    return Math.max(...cols.map(h=>c>=h&&c<=h+2?(c===h+1?95:c===h?65:60):-65));
   };
-  const scored=candidates.map(x=>{
-    let score=0,paired=0,numericCount=0,positive=0;
-    const a=numeric(at(tr,x.plan)),b=numeric(at(tr,x.real));
-    if(a!==null && b!==null){score+=900; if(a!==0&&b!==0)score+=150;}
-    else if(a!==null||b!==null)score-=200;
-    // En la fila del gran total puede haber texto monetario separado antes del valor.
-    if(a!==null&&a!==0)score+=100;
-    if(b!==null&&b!==0)score+=100;
-    const headerScore=(type,c)=>{
-      if(!headerPositions[type].length)return 0;
-      let best=-60;
-      for(const h of headerPositions[type]){
-        // Una cabecera fusionada abarca su celda y puede tener importe 1 o 2 columnas después.
-        const dist=c-h;
-        best=Math.max(best,dist===0?80:dist===1?105:dist===2?55:-55);
-      }
-      return best;
-    };
-    score+=headerScore('plan',x.plan)+headerScore('real',x.real);
-    for(let i=0;i<firstData;i++){
-      const r=rows[i]||[],quality=rowQuality(r);
-      if(!quality && ![...Array(4)].some((_,j)=>budgetCategoryName(at(r,j))))continue;
-      const va=numeric(at(r,x.plan)),vb=numeric(at(r,x.real));
-      if(va!==null)numericCount++;
-      if(vb!==null)numericCount++;
-      if(va!==null&&va!==0)positive++;
-      if(vb!==null&&vb!==0)positive++;
-      if(va!==null&&vb!==null){paired++; if(va!==0||vb!==0)score+=quality>=3?5:2;}
+  const candidates=[];
+  for(let p=2;p<=14;p++)for(let q=p+1;q<=Math.min(p+6,15);q++){
+    const tp=numeric(at(grand,p)),tr=numeric(at(grand,q));
+    let score=0;
+    if(tp!==null&&tr!==null){
+      score+=5000;
+      if(Math.abs(tp)+Math.abs(tr)>0)score+=550;
+    }else if(tp!==null||tr!==null)score-=1500;
+    score+=nearHeader(headers.plan,p)+nearHeader(headers.real,q);
+    if(q===p+2)score+=8; // importes separados por columna USD$
+    let pairs=0,values=0,positive=0;
+    for(const row of mainRows){
+      const a=numeric(at(row,p)),b=numeric(at(row,q));
+      if(a!==null&&b!==null){pairs++;if(a||b)positive++;}
+      if(a!==null)values++;
+      if(b!==null)values++;
     }
-    score+=Math.min(paired,35)*5+Math.min(positive,70)*2+Math.min(numericCount,90)*.1;
-    // Penaliza lecturas en las que el único valor financiero cae en una columna.
-    if(a!==null&&b===null)score-=120;
-    if(b!==null&&a===null)score-=120;
-    return {...x,score};
-  }).sort((a,b)=>b.score-a.score);
-  return {...scored[0],totalLine,codeColumn,scores:scored.slice(0,3)};
+    score+=Math.min(pairs,80)*12+Math.min(positive,100)*5+Math.min(values,160);
+    candidates.push({plan:p,real:q,score,name:excelCol(p)+'/'+excelCol(q)});
+  }
+  candidates.sort((a,b)=>b.score-a.score);
+  const best=candidates[0];
+  return {...best,totalLine,scores:candidates.slice(0,3),
+    foundTotal:totalLine>=0,hasTwoNumbers:grand.filter(v=>numeric(v)!==null).length>=2};
 }
 function detectBudgetColumns(rows){return findBudgetAmountColumns(rows);}
 function budgetItem(r,rowIndex,planIndex,realIndex){
@@ -369,14 +418,58 @@ function parseCashflow(rows){
   }
   return {groups,periods:columns.map(({id,month,yearIndex})=>({id,month,yearIndex})),totals,excluded,warnings,fxRate};
 }
-function identifySheets(sheets){return {purchases:findSheet(sheets,[/bd.*plan.*detallado/,/plan detallado/,/bd.*compra/]),budget:findSheet(sheets,[/presupuesto.*real/,/presupuesto detallado/,/vs.*real/]),cashflow:findSheet(sheets,[/flujo.*caja/,/cash.*flow/])};}
+/* Puntos pendientes: Fecha, Hitos, Responsable y Comentarios.
+   Soporta encabezados desplazados y fechas vacías; no depende de enlaces entre libros. */
+function formatCommentDate(v){
+  if(v==null||v==='')return '';
+  let d=v;
+  if(typeof v==='number'&&v>1000&&v<100000){
+    d=new Date(Date.UTC(1899,11,30)+Math.floor(v)*86400000);
+    if(Number.isNaN(d.getTime()))return String(v);
+    return `${String(d.getUTCDate()).padStart(2,'0')}/${String(d.getUTCMonth()+1).padStart(2,'0')}/${d.getUTCFullYear()}`;
+  }
+  if(v instanceof Date){
+    if(Number.isNaN(v.getTime()))return '';
+    return `${String(v.getDate()).padStart(2,'0')}/${String(v.getMonth()+1).padStart(2,'0')}/${v.getFullYear()}`;
+  }
+  const str=String(v).trim();
+  const iso=str.match(/^(\d{4})-(\d{2})-(\d{2})(?:T|$)/);
+  return iso?`${iso[3]}/${iso[2]}/${iso[1]}`:str;
+}
+function commentHeaderColumns(row){
+  const cells=(row||[]).map(clean);
+  const find=(pattern)=>cells.findIndex(c=>pattern.test(c));
+  const fecha=find(/^(fecha|fecha compromiso|fecha objetivo|fecha limite|fecha de seguimiento)$/);
+  const hito=find(/^(hitos?|pendientes?|actividad|actividades|asunto|tarea|descripcion de hito)$/);
+  const responsable=find(/^(responsable|responsables|encargado|encargada|responsable del hito)$/);
+  const comentario=find(/^(comentarios?|observaciones?|observacion|nota|notas|seguimiento)$/);
+  return hito>=0&&responsable>=0&&comentario>=0?{fecha,hito,responsable,comentario}:null;
+}
+function parseComments(rows){
+  const pos=rows.findIndex((r,i)=>i<45&&commentHeaderColumns(r));
+  if(pos<0)return {rows:[],warnings:['No se encontraron los encabezados Hitos, Responsable y Comentarios.']};
+  const columns=commentHeaderColumns(rows[pos]);
+  const data=[];
+  for(let i=pos+1;i<rows.length;i++){
+    const r=rows[i]||[];
+    if(commentHeaderColumns(r))continue;
+    const hito=txt(at(r,columns.hito));
+    const responsable=txt(at(r,columns.responsable));
+    const comentario=txt(at(r,columns.comentario));
+    if(!hito&&!responsable&&!comentario)continue;
+    data.push({row:i+1,fecha:columns.fecha>=0?formatCommentDate(at(r,columns.fecha)):'',hito,responsable,comentario});
+  }
+  return {rows:data,warnings:[],detectedColumns:columns};
+}
+function identifySheets(sheets){return {purchases:findSheet(sheets,[/bd.*plan.*detallado/,/plan detallado/,/bd.*compra/]),budget:findSheet(sheets,[/presupuesto.*real/,/presupuesto detallado/,/vs.*real/]),cashflow:findSheet(sheets,[/flujo.*caja/,/cash.*flow/]),comments:findSheet(sheets,[/puntos? pendientes?/,/comentarios?/,/seguimiento de pendientes/])};}
 function parseProject(sheets,filename){
   const selected=identifySheets(sheets),warnings=[];
   const purchases=selected.purchases?parsePurchases(sheets[selected.purchases]):{rows:[],warnings:['Falta la hoja BD Plan Detallado.']};
   const budget=selected.budget?parseBudget(sheets[selected.budget]):{groups:[],totals:{presupuesto:0,real:0,source:'none'},warnings:['Falta la hoja Presupuesto Vs Real.']};
   const cashflow=selected.cashflow?parseCashflow(sheets[selected.cashflow]):{groups:[],periods:[],totals:[],warnings:['Falta la hoja Flujo de Caja.']};
+  const comments=selected.comments?parseComments(sheets[selected.comments]):{rows:[],warnings:[],missing:true};
   for(const w of [...purchases.warnings,...budget.warnings,...cashflow.warnings])warnings.push(w);
-  return {name:filename.replace(/\.xlsx?$/i,'').replace(/[_-]/g,' ').trim(),filename,selected,purchases,budget,cashflow,warnings,importedAt:new Date().toISOString(),startYear:null,parserVersion:5};
+  return {name:filename.replace(/\.xlsx?$/i,'').replace(/[_-]/g,' ').trim(),filename,selected,purchases,budget,cashflow,comments,warnings,importedAt:new Date().toISOString(),startYear:null,parserVersion:6};
 }
 function aggregate(projects){
   const k={totalItems:0,colocada:0,stock:0,pendiente:0,sin_info:0,revisar:0,presupuesto:0,real:0,projectCount:projects.length};
@@ -425,12 +518,13 @@ const diffClass=v=>v>0.005?'positive':v<-.005?'negative':'';
 const clamp=v=>Math.min(100,Math.max(0,v));
 const statusText={colocada:'Orden colocada',stock:'Stock / Completado',pendiente:'Pendiente de compra',sin_info:'Sin información',revisar:'Revisar'};
 const COLORS={colocada:'#08725a',stock:'#78c4e3',pendiente:'#ffa142',sin_info:'#d3dce0',revisar:'#bb4545'};
-const titles={resumen:'Resumen Ejecutivo',compras:'Seguimiento de Compras',presupuesto:'Presupuesto vs. Real',flujo:'Flujo de Caja',comparativo:'Comparativo Proyectos',datos:'Data General'};
-const ICON={overview:'<rect x="3" y="2" width="17" height="20" rx="2"/><path d="M7 7h9M7 11h9M7 15h6"/>',purchase:'<circle cx="9" cy="7" r="4"/><path d="M3 21v-3a6 6 0 0 1 12 0v3M19 9v9m-3-3h6"/>',budget:'<path d="M5 2h11l4 4v16H5a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"/><path d="M15 2v5h5M7 12h9M7 16h9"/>',flow:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 2h10M7 10h10M7 14h5"/><circle cx="17" cy="16" r="4"/>',compare:'<path d="M3 20V11m6 9V6m6 14v-5m6 5V3M2 5l6-3 5 7 8-5"/>',data:'<rect x="4" y="2" width="16" height="20" rx="1"/><path d="M8 7h8M8 11h8M8 15h8"/>',pdf:'<path d="M5 2h11l4 4v16H5a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"/><path d="M15 2v5h5M8 13h8M8 17h8"/>',coins:'<ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 4 16 4 16 0V5M4 11v6c0 4 16 4 16 0v-6"/>',doc:'<rect x="5" y="2" width="13" height="20" rx="2"/><path d="M9 7h5M9 11h5M9 15h5"/>',growth:'<path d="M4 20v-6h4v6M10 20V9h4v11M16 20V4h4v16"/>',cart:'<circle cx="10" cy="20" r="1"/><circle cx="19" cy="20" r="1"/><path d="M2 3h3l3 13h12l2-10H6"/>',clock:'<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 3"/>'};
+const titles={resumen:'Resumen Ejecutivo',compras:'Seguimiento de Compras',presupuesto:'Presupuesto vs. Real',flujo:'Flujo de Caja',comparativo:'Comparativo Proyectos',datos:'Data General',comentarios:'Comentarios',medir:'Medir y Aprender'};
+const ICON={overview:'<rect x="3" y="2" width="17" height="20" rx="2"/><path d="M7 7h9M7 11h9M7 15h6"/>',purchase:'<circle cx="9" cy="7" r="4"/><path d="M3 21v-3a6 6 0 0 1 12 0v3M19 9v9m-3-3h6"/>',budget:'<path d="M5 2h11l4 4v16H5a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"/><path d="M15 2v5h5M7 12h9M7 16h9"/>',flow:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 2h10M7 10h10M7 14h5"/><circle cx="17" cy="16" r="4"/>',compare:'<path d="M3 20V11m6 9V6m6 14v-5m6 5V3M2 5l6-3 5 7 8-5"/>',data:'<rect x="4" y="2" width="16" height="20" rx="1"/><path d="M8 7h8M8 11h8M8 15h8"/>',learn:'<path d="M4 4h7c2 0 3 1 3 3v13c0-2-1-3-3-3H4V4Z"/><path d="M20 4h-6c-2 0-3 1-3 3v13c0-2 1-3 3-3h6V4Z"/>',comments:'<path d="M4 5h16v12H8l-4 4V5Z"/><path d="M8 9h8M8 13h6"/>',pdf:'<path d="M5 2h11l4 4v16H5a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"/><path d="M15 2v5h5M8 13h8M8 17h8"/>',coins:'<ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 4 16 4 16 0V5M4 11v6c0 4 16 4 16 0v-6"/>',doc:'<rect x="5" y="2" width="13" height="20" rx="2"/><path d="M9 7h5M9 11h5M9 15h5"/>',growth:'<path d="M4 20v-6h4v6M10 20V9h4v11M16 20V4h4v16"/>',cart:'<circle cx="10" cy="20" r="1"/><circle cx="19" cy="20" r="1"/><path d="M2 3h3l3 13h12l2-10H6"/>',clock:'<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 3"/>'};
 function icon(name){return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">${ICON[name]||ICON.doc}</svg>`;}
 document.querySelectorAll('[data-icon]').forEach(e=>e.innerHTML=icon(e.dataset.icon));
 let saved=[],view='resumen',selected='__all',selectedFormat='__all',selectedType='__all',selectedYear='__all',selectedQuarter='__all';
-let preview=true,budgetDonut='partidas',purchaseFilter='__all',search='',openBudget=new Set(['demo|1.00','demo|2.00']),openCash=new Set(),openSummary=new Set(),openCompare=new Set(),storageOk=true;
+let learningPosts=[],learningStatus='loading',learningSearch='',learningOwner='__all',learningType='__all',learningProject='__all',learningEditor=false,learningError='';
+let preview=true,budgetDonut='partidas',purchaseFilter='__all',search='',commentsSearch='',commentsOwner='__all',openBudget=new Set(['demo|1.00','demo|2.00']),openCash=new Set(),openSummary=new Set(),openCompare=new Set(),storageOk=true;
 const DB='ramos_iniciativas_dashboard_v2',ST='projects';
 function db(){return new Promise((yes,no)=>{const req=indexedDB.open(DB,1);req.onupgradeneeded=()=>req.result.createObjectStore(ST,{keyPath:'id'});req.onsuccess=()=>yes(req.result);req.onerror=()=>no(req.error);});}
 function allProjects(){return new Promise(async(yes,no)=>{try{const d=await db(),t=d.transaction(ST,'readonly'),r=t.objectStore(ST).getAll();r.onsuccess=()=>yes(r.result||[]);r.onerror=()=>no(r.error);t.oncomplete=()=>d.close();}catch(e){no(e);}});}
@@ -454,6 +548,11 @@ const demo={id:'demo',name:'Sirena Compacta Hispano',filename:'DEMO.xlsx',format
  const cash=[60000,90000,190000,70000,130000,360000,550000,1100000,250000,370000,400000,450000,590000,650000,320000,200000,340000,475000,515000,525000,600000,135000];
  demo.cashflow.totals=cash.map(v=>v*63);demo.cashflow.groups=[{code:'2.00',label:'Obra Civil',presupuesto:cash.reduce((s,v)=>s+v*63,0),values:cash.map(v=>v*63),children:[{code:'2.01',label:'Edificación - Obra Civil',presupuesto:cash.reduce((s,v)=>s+v*63,0),values:cash.map(v=>v*63)}]}];
 }
+demo.comments={rows:[
+ {row:2,fecha:'',hito:'Supervisión de frío alimentario',responsable:'Responsable de muestra',comentario:'Pendiente de validar proveedor'},
+ {row:3,fecha:'',hito:'Puerta de entrada',responsable:'Equipo de compras',comentario:'En espera de cotización'},
+ {row:4,fecha:'',hito:'Mobiliarios especiales',responsable:'Equipo de proyectos',comentario:'Pendiente de confirmar dimensiones'}
+]};
 const displayProjects=()=>saved.length?saved:preview?[demo]:[];
 const matchSearch=(...parts)=>!search||clean(parts.join(' ')).includes(clean(search));
 function filtersProjects(){return displayProjects().filter(p=>(selected==='__all'||p.id===selected)&&(selectedFormat==='__all'||meta(p).format===selectedFormat)&&(selectedType==='__all'||meta(p).type===selectedType));}
@@ -463,12 +562,29 @@ function syncFilters(){const all=displayProjects();fillSelect('projectSelect',[[
  $('sideUpdate').textContent=saved.length?new Date(Math.max(...saved.map(x=>new Date(x.importedAt||0).getTime()||0))).toLocaleDateString('es-DO'):'Sin archivos';
  $('dataStatus').textContent=saved.length?`${saved.length} ${saved.length===1?'iniciativa cargada':'iniciativas cargadas'} · Procesamiento local · Año/trimestre filtran el flujo`:'Vista de demostración · Importa tus Excel para utilizar cifras reales';
 }
-function warnings(list){let warn=[];for(const p of list)if(!p.demo){if((p.parserVersion||1)<5)warn.push(`${p.name}: vuelve a importar este Excel para reconocer los códigos y montos de las partidas financieras.`);warn.push(...(p.warnings||[]).map(s=>`${p.name}: ${s}`));}return warn.map(s=>`<div class="warning">${esc(s)}</div>`).join('');}
+function warnings(list){let warn=[];for(const p of list)if(!p.demo){if((p.parserVersion||1)<6)warn.push(`${p.name}: IMPORTACIÓN ANTIGUA: debes cargar el Excel otra vez. El navegador conserva los datos anteriores incluso cuando cambia el código.`);warn.push(...(p.warnings||[]).map(s=>`${p.name}: ${s}`));}return warn.map(s=>`<div class="warning">${esc(s)}</div>`).join('');}
+function invalidFinancialProject(p){
+  if(p.demo || !p.selected?.budget)return false;
+  const old=(p.parserVersion||0)<6;
+  const empty=!p.budget?.groups?.length;
+  const broken=p.budget?.totals && !(Number(p.budget.totals.presupuesto)||Number(p.budget.totals.real)) &&
+    (p.budget?.summaryCategories||[]).some(x=>Number(x.presupuesto)||Number(x.real));
+  return old||empty||broken;
+}
 function render(){document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===view));syncFilters();const list=filtersProjects();$('notices').innerHTML=warnings(list);
+ if(view==='medir'){ $('notices').innerHTML=''; $('dataStatus').textContent='Medir y Aprender · publicaciones desde GitHub · independiente de Excel'; $('dashboardBody').innerHTML=learningView(); bindBody(); return; }
+ if(view!=='comentarios'&&list.some(invalidFinancialProject)){
+   const faulty=list.filter(invalidFinancialProject).map(p=>esc(p.name)).join(', ');
+   $('dashboardBody').innerHTML='<section class="panel module-panel"><h2 class="section-title">Se requiere volver a importar el Excel</h2><p class="small-note">Los datos financieros guardados de '+faulty+' corresponden a una lectura anterior o incompleta. No se mostrarán importes en cero hasta verificar el archivo.</p><button class="upload-btn" id="refreshFinance" type="button">＋ Volver a cargar Excel</button> <button class="secondary-btn" id="manageFinance" type="button">Gestionar proyectos</button></section>';
+   $('refreshFinance').addEventListener('click',()=>$('fileInput').click());
+   $('manageFinance').addEventListener('click',openModal);
+   return;
+ }
+
  if(!displayProjects().length){$('dashboardBody').innerHTML=`<div class="empty-state"><h2>Empieza cargando tus iniciativas</h2><p>Selecciona uno o varios archivos Excel con las hojas BD Plan Detallado, Presupuesto Vs Real y Flujo de Caja. También puedes activar la vista de demostración.</p><button id="emptyUpload">＋ Cargar Excel</button> <button id="enableDemo" class="control-btn">Ver demostración</button></div>`;bindBody();return;}
  if(list.length===0){$('dashboardBody').innerHTML=`<div class="empty-state"><h2>No hay proyectos con esos filtros</h2><p>Cambia Proyecto, Formato o Tipo de proyecto en la cabecera.</p></div>`;return;}
  const badge=list.some(p=>p.demo)?`<div class="demo-notice"><b>VISTA DEMOSTRATIVA · DATOS DE EJEMPLO.</b> El diseño es funcional; los montos de esta vista solo sirven para visualizarlo. <button id="demoUpload">Cargar mis Excel</button></div>`:'';
- let body='';if(view==='resumen')body=summary(list);if(view==='compras')body=purchasesView(list);if(view==='presupuesto')body=budgetView(list);if(view==='flujo')body=cashView(list);if(view==='comparativo')body=compareView(list);if(view==='datos')body=dataView(list);
+ let body='';if(view==='resumen')body=summary(list);if(view==='compras')body=purchasesView(list);if(view==='presupuesto')body=budgetView(list);if(view==='flujo')body=cashView(list);if(view==='comparativo')body=compareView(list);if(view==='datos')body=dataView(list);if(view==='comentarios')body=commentsView(list);
  $('dashboardBody').innerHTML=badge+body;bindBody();}
 function card(label,value,kind,iconName,note,progress=null){return `<article class="panel kpi-card"><span class="kpi-symbol ${kind==='good'?'green':''}">${icon(iconName)}</span><div class="kpi-name">${label}</div><div class="kpi-number ${kind==='good'?'good':kind==='bad'?'bad':''}">${value}</div>${progress!=null?`<div class="kpi-progress"><span style="width:${clamp(progress)}%"></span></div>`:''}<div class="kpi-note ${kind==='good'?'good':kind==='bad'?'bad':''}">${note}</div></article>`;}
 function headerCards(list){const a=aggregate(list),classified=a.totalItems-a.sin_info-a.revisar;
@@ -554,6 +670,136 @@ function cashView(list){const filtered=filterPeriods(list),total=filtered.reduce
  if(show)tableRows.push(...(g.children||[]).map(ch=>`<tr class="child"><td>${esc(ch.code)} ${esc(ch.label)}</td><td class="num">${nfmt(ch.presupuesto)}</td>${fmtCells(ch)}<td class="num">${nfmt(rowTotal(ch))}</td></tr>`));}
  return `<div class="kpi-row">${card('Flujo Programado',money(overall,'DOP'),'','coins','Total de períodos')}${card('Flujo Filtrado',money(total,'DOP'),'','doc','Selección año/trimestre')}${card('Períodos',String(filtered.length),'','flow',`de ${allPeriods.length} períodos`)}${card('Pico de Desembolso',money(max.planned,'DOP'),'','growth',max.month||'Sin datos')}${card('Iniciativas',String(list.length),'','budget','Proyectos en la selección')}</div><section class="panel bottom-panel" style="margin-bottom:14px">${cashChart(list)}<p class="small-note">El Excel proporciona flujo programado; no se inventa una serie de pagos reales mensuales. Se muestra en USD solamente cuando hay una tasa USD válida en el archivo.</p></section><section class="panel module-panel"><div class="toolbar"><div><h2 class="section-title">Flujo de Caja por Partida y Mes</h2><small>Solo se suman los detalles. Excluimos subtotales, TOTAL-DOP, controles, tasa y flujo USD de los grandes totales.</small></div><div class="card-tools"><button class="control-btn" data-expand="cash">Expandir todo</button><button class="control-btn" data-collapse="cash">Contraer todo</button><button class="control-btn" id="exportCash">Exportar CSV</button></div></div><div class="table-wrap"><table class="data-table cash-matrix"><thead><tr><th>Partida / Subpartida</th><th class="num">Ppto OI (DOP)</th>${cols.map(t=>`<th class="num">${esc(t.month.slice(0,3))}${t.year?' '+t.year:' · P'+t.period}</th>`).join('')}<th class="num">Total DOP</th></tr></thead><tbody>${tableRows.join('')||`<tr><td colspan="${cols.length+3}">Sin partidas para estos filtros</td></tr>`}<tr class="grand"><td>TOTAL GENERAL SIN DUPLICACIONES</td><td class="num">${nfmt(budgetOI)}</td>${cols.map(t=>`<td class="num">${nfmt(t.planned)}</td>`).join('')}<td class="num">${nfmt(total)}</td></tr></tbody></table></div></section>`;}
 function dataView(list){const agg=aggregate(list);return headerCards(list)+`<section class="panel module-panel"><div class="toolbar"><div><h2 class="section-title">Data General del Portafolio</h2><small>Resumen financiero por iniciativa, con categorías y cantidad de ítems.</small></div><button class="control-btn" id="dataManage">Editar datos de los proyectos</button></div><div class="table-wrap"><table class="data-table"><thead><tr><th>Proyecto</th><th>Formato</th><th>Tipo</th><th class="num">Presupuesto USD</th><th class="num">Real USD</th><th class="num">Diferencia USD</th><th class="num">OC</th><th class="num">Stock</th><th class="num">Pendientes</th></tr></thead><tbody>${list.map(p=>{const a=aggregate([p]);return `<tr><td>${esc(p.name)}</td><td>${esc(meta(p).format)}</td><td>${esc(meta(p).type)}</td><td class="num">${fmt(a.presupuesto)}</td><td class="num">${fmt(a.real)}</td><td class="num ${diffClass(a.diferencia)}">${signed(a.diferencia)}</td><td class="num">${a.colocada}</td><td class="num">${a.stock}</td><td class="num">${a.pendiente}</td></tr>`;}).join('')}<tr class="grand"><td>TOTAL</td><td></td><td></td><td class="num">${fmt(agg.presupuesto)}</td><td class="num">${fmt(agg.real)}</td><td class="num">${fmt(agg.diferencia)}</td><td class="num">${agg.colocada}</td><td class="num">${agg.stock}</td><td class="num">${agg.pendiente}</td></tr></tbody></table></div></section><section class="panel module-panel"><h2 class="section-title">Estructura de Lectura</h2><div class="metric-strip"><span><b>BD Plan Detallado:</b> compras de columna G</span><span><b>Presupuesto Vs Real:</b> G = Plan · H = Real</span><span><b>Flujo de Caja:</b> P1, P2… · detalle sin duplicaciones</span></div><p class="small-note">Al cargar un Excel nuevo, se incorpora a la lista de proyectos. Si subes el mismo nombre de archivo nuevamente puedes actualizarlo. Los archivos originales no se publican en GitHub y la información se conserva únicamente en este navegador mediante IndexedDB.</p></section>`;}
+
+function commentsView(list){
+  const all=list.flatMap(p=>(p.comments?.rows||[]).map(r=>({...r,project:p.name,projectId:p.id})));
+  const owners=[...new Set(all.map(r=>r.responsable).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'es'));
+  if(commentsOwner!=='__all'&&!owners.includes(commentsOwner))commentsOwner='__all';
+  const matches=all.filter(r=>(commentsOwner==='__all'||r.responsable===commentsOwner)&&
+    (!commentsSearch||clean([r.hito,r.responsable,r.comentario,r.fecha,r.project].join(' ')).includes(clean(commentsSearch))));
+  const showProject=list.length>1;
+  const visibleRows=matches.map(r=>`<tr>${showProject?`<td>${esc(r.project)}</td>`:''}<td>${r.fecha?esc(r.fecha):'<span class="comment-no-data">—</span>'}</td><td class="comment-hito">${r.hito?esc(r.hito):'<span class="comment-no-data">Sin hito</span>'}</td><td>${r.responsable?esc(r.responsable):'<span class="comment-no-data">—</span>'}</td><td class="comment-description">${r.comentario?esc(r.comentario):'<span class="comment-no-data">Sin comentario</span>'}</td></tr>`).join('');
+  const missing=list.filter(p=>!p.demo&&!p.selected?.comments).map(p=>p.name);
+  const unknown=list.filter(p=>!p.demo&&p.selected?.comments&&!p.comments?.rows?.length).map(p=>p.name);
+  const specialNotice=missing.length?`<div class="warning info">La hoja «Puntos pendientes» no está disponible para: ${esc(missing.join(', '))}. Si ya existe en el Excel, vuelve a importar ese archivo para actualizar los comentarios.</div>`:'';
+  const emptyNotice=unknown.length?`<div class="warning info">Se encontró la hoja de comentarios en ${esc(unknown.join(', '))}, pero no se identificaron filas con Hitos, Responsable y Comentarios. Comprueba la fila de encabezados.</div>`:'';
+  const firstHint=(!all.length)?'<div class="no-data">Aún no hay comentarios para estas iniciativas. En el Excel incluye una hoja «Puntos pendientes» con columnas A: Fecha, B: Hitos, C: Responsable y D: Comentarios. Luego vuelve a cargar el mismo archivo.</div>':'';
+  return `<section class="panel module-panel comments-panel">
+    <div class="toolbar"><div><h2 class="section-title">Comentarios y Puntos Pendientes</h2><small>Seguimiento de hitos, responsables y observaciones por iniciativa · Hoja «Puntos pendientes»</small></div>
+      <div class="comments-actions"><input id="commentsSearch" class="search-field" type="search" placeholder="Buscar hito, responsable o comentario…" value="${esc(commentsSearch)}" aria-label="Buscar comentarios"><select id="commentsOwner" aria-label="Filtrar por responsable"><option value="__all">Todos los responsables</option>${owners.map(o=>`<option value="${esc(o)}" ${commentsOwner===o?'selected':''}>${esc(o)}</option>`).join('')}</select><button id="exportComments" class="control-btn">Exportar CSV</button></div>
+    </div>
+    <div class="metric-strip"><span>Hitos: <b>${all.length}</b></span><span>Con comentarios: <b>${all.filter(r=>!!r.comentario).length}</b></span><span>Responsables: <b>${owners.length}</b></span><span>Resultados visibles: <b>${matches.length}</b></span></div>
+    ${specialNotice}${emptyNotice}
+    ${all.length?`<div class="table-wrap"><table class="data-table comments-table"><colgroup>${showProject?'<col style="width:15%">':''}<col style="width:12%"><col style="width:${showProject?'25':'30'}%"><col style="width:17%"><col style="width:${showProject?'31':'41'}%"></colgroup><thead><tr>${showProject?'<th>Proyecto</th>':''}<th>Fecha</th><th>Hitos</th><th>Responsable</th><th>Comentarios</th></tr></thead><tbody>${visibleRows||`<tr><td colspan="${showProject?5:4}" class="no-data">No hay coincidencias con estos filtros.</td></tr>`}</tbody></table></div>`:firstHint}
+    <p class="small-note">Los datos se leen de las celdas del Excel y se guardan localmente con cada iniciativa. Las filas con fecha vacía se mantienen; para actualizar, vuelve a cargar el archivo del proyecto.</p>
+  </section>`;
+}
+
+/* Biblioteca manual de publicaciones: publicaciones.json en la raíz de GitHub Pages.
+   El sitio solo LEE; publicar exige permiso para editar el repositorio. */
+function learningUrl(value){
+  const s=String(value??'').trim(); if(!s)return '';
+  // Rutas para imágenes de la carpeta del repositorio (sin URL externa).
+  if(/^[a-z0-9_-]+(?:\/[a-z0-9_.%-]+)+$/i.test(s) && !s.split('/').includes('..'))return s;
+  try{const u=new URL(s,window.location.href);return ['https:','http:'].includes(u.protocol)?u.href:'';}catch{return '';}
+}
+function learningDate(v){
+  if(!v)return 'Sin fecha';
+  const d=new Date(String(v).slice(0,10)+'T12:00:00');
+  return Number.isNaN(d.getTime())?String(v):new Intl.DateTimeFormat('es-DO',{day:'numeric',month:'long',year:'numeric'}).format(d);
+}
+function learningCover(p){
+  const url=learningUrl(p.imagen);
+  return `<div class="learning-cover ${url?'':'no-image'}">${url?`<img src="${esc(url)}" alt="Imagen de ${esc(p.titulo)}" loading="lazy">`:''}</div>`;
+}
+function learningPost(p,featured=false){
+  const link=learningUrl(p.enlace), btn=link?`<a class="learning-btn" href="${esc(link)}" target="_blank" rel="noopener noreferrer">${featured?'Ver publicación ↗':'Abrir documento ↗'}</a>`:'<p class="learning-post-info warn">Enlace pendiente</p>';
+  const meta=`<div class="learning-meta"><span>${esc(learningDate(p.fecha))}</span><span>·</span><span>${esc(p.autor||'Equipo de Compras')}</span>${p.proyecto?`<span>·</span><span>${esc(p.proyecto)}</span>`:''}</div>`;
+  if(featured) return `<article class="panel learning-feature">${learningCover(p)}<div class="learning-feature-body"><div class="learning-top-mark"><span class="learning-label">★ PUBLICACIÓN DESTACADA</span>${p.tipo?`<span class="learning-label">${esc(p.tipo)}</span>`:''}</div>${meta}<h3>${esc(p.titulo)}</h3><p>${esc(p.resumen||'')}</p>${btn}</div></article>`;
+  return `<article class="panel learning-card">${learningCover(p)}<div class="learning-meta"><span>${esc(learningDate(p.fecha))}</span>${p.tipo?`<span class="learning-label">${esc(p.tipo)}</span>`:''}</div><h3>${esc(p.titulo)}</h3>${meta}<p>${esc(p.resumen||'')}</p>${btn}</article>`;
+}
+function learningOptions(values,current){return [['__all','Todos'],...[...new Set(values.filter(Boolean))].sort((a,b)=>a.localeCompare(b,'es')).map(x=>[x,x])].map(([v,t])=>`<option value="${esc(v)}"${v===current?' selected':''}>${esc(t)}</option>`).join('');}
+function learningForm(){
+  return `<section class="panel learning-editor" id="learningEditorPanel"><h3>Preparar una publicación</h3>
+     <p class="small-note">Rellena los campos y descarga <b>publicaciones.json</b>. Esto NO publica automáticamente: alguien con permisos deberá reemplazar ese archivo en GitHub.</p>
+     <form id="learningForm" class="learning-form">
+       <label class="learning-field">Título *<input name="titulo" required maxlength="150" placeholder="Diagnóstico de recepción de activos"></label>
+       <label class="learning-field">Autor / responsable *<input name="autor" required maxlength="100" placeholder="Nombre y apellido"></label>
+       <label class="learning-field">Proyecto<input name="proyecto" maxlength="100" placeholder="Ej. Verón o Transversal"></label>
+       <label class="learning-field">Tipo de publicación<select name="tipo"><option>Diagnóstico</option><option>Aprendizaje</option><option>Mejora</option><option>Hallazgo</option><option>Proyecto</option><option>Otro</option></select></label>
+       <label class="learning-field">Fecha<input type="date" name="fecha"></label>
+       <label class="learning-field">Imagen (URL pública o ruta de GitHub)<input name="imagen" placeholder="imagenes/diagnostico.jpg o https://..."></label>
+       <label class="learning-field learning-full">Enlace al diagnóstico o documento *<input name="enlace" required placeholder="https://... (SharePoint, Drive, OneDrive...)"></label>
+       <label class="learning-field learning-full">Resumen *<textarea name="resumen" required maxlength="1000" placeholder="¿Qué se analizó y qué aprendió el equipo?"></textarea></label>
+       <label class="learning-field learning-full"><span><input type="checkbox" name="destacado" style="width:auto;vertical-align:middle"> Marcar como publicación destacada</span></label>
+       <div class="learning-full"><button class="learning-btn" type="submit">↓ Descargar archivo actualizado</button> <button class="learning-btn alt" type="button" id="learningClose">Cancelar</button></div>
+     </form>
+     <div class="learning-steps"><b>Después de descargar:</b><ol class="learning-step-list"><li>Entra al repositorio <b>DASHBOARD-INAF2026</b> en GitHub.</li><li>Reemplaza el archivo <b>publicaciones.json</b> por el que descargaste (el nombre debe quedar exacto).</li><li>Guarda mediante <b>Commit changes</b>. La nueva tarjeta aparecerá al actualizar la página.</li></ol>Si elegiste una imagen local, súbela antes a la carpeta <b>imagenes</b> del mismo repositorio. La publicación y su resumen serán públicos si GitHub Pages es público, aunque el documento enlazado tenga permisos privados.</div>
+    </section>`;
+}
+function learningView(){
+  const published=learningPosts.filter(p=>p&&p.publicar!==false&&p.titulo);
+  const allprojects=published.map(p=>p.proyecto),authors=published.map(p=>p.autor),types=published.map(p=>p.tipo);
+  const filtered=published.filter(p=>
+   (learningProject==='__all'||p.proyecto===learningProject)&&
+   (learningOwner==='__all'||p.autor===learningOwner)&&
+   (learningType==='__all'||p.tipo===learningType)&&
+   (!learningSearch||clean([p.titulo,p.resumen,p.autor,p.proyecto,p.tipo].join(' ')).includes(clean(learningSearch))));
+  const ordered=[...filtered].sort((a,b)=>String(b.fecha||'').localeCompare(String(a.fecha||'')));
+  const feature=ordered.find(p=>p.destacado)||ordered[0];
+  const rest=ordered.filter(p=>p!==feature);
+  const status=learningStatus==='error'?`<div class="warning">No se pudo leer <b>publicaciones.json</b>: ${esc(learningError)}. Comprueba que esté en la carpeta principal del repositorio y sea JSON válido.</div>`:
+    learningStatus==='loading'?'<div class="warning info">Cargando publicaciones…</div>':'';
+  const empty=learningStatus==='ready'&&!published.length?`<section class="panel learning-empty"><h3>Aún no hay publicaciones</h3><p>Esta biblioteca no utiliza Excel. Pulsa <b>Preparar publicación</b> para llenar los datos y descargar el archivo que se subirá a GitHub.</p><button class="learning-btn" id="learningStart" type="button">＋ Preparar primera publicación</button></section>`:
+  learningStatus==='ready'&&published.length&&!ordered.length?'<section class="panel learning-empty"><h3>No hay publicaciones para estos filtros</h3><p>Prueba con otro proyecto, responsable o tipo.</p></section>':'';
+  const controls=published.length?`<section class="panel learning-controls">
+    <label class="learning-field">Buscar publicación<input id="learningSearch" value="${esc(learningSearch)}" placeholder="Título, resumen o palabra clave"></label>
+    <label class="learning-field">Proyecto<select id="learningProject">${learningOptions(allprojects,learningProject)}</select></label>
+    <label class="learning-field">Responsable<select id="learningOwner">${learningOptions(authors,learningOwner)}</select></label>
+    <label class="learning-field">Tipo<select id="learningType">${learningOptions(types,learningType)}</select></label>
+  </section>`:'';
+  return `<div class="learning-shell"><section class="panel learning-intro"><div><h2>Medir y Aprender</h2><p>Diagnósticos, aprendizajes, mejores prácticas y publicaciones del equipo de Activos Fijos.</p></div><div class="learning-intro-actions"><button class="learning-btn alt" id="learningRefresh" type="button">↻ Actualizar publicaciones</button><button class="learning-btn" id="learningPrepare" type="button">＋ Preparar publicación</button></div></section>
+  ${status}${learningEditor?learningForm():''}${feature?learningPost(feature,true):''}${controls}${rest.length?`<section class="learning-grid">${rest.map(p=>learningPost(p)).join('')}</section>`:''}${empty}
+  <p class="learning-post-info">Las publicaciones se administran manualmente desde GitHub mediante <b>publicaciones.json</b>. Los Excel de iniciativas no intervienen en esta sección.</p></div>`;
+}
+async function loadLearningPosts(){
+  learningStatus='loading'; learningError='';if(view==='medir')render();
+  try{
+    const resp=await fetch('publicaciones.json',{cache:'no-store'});
+    if(!resp.ok)throw Error('HTTP '+resp.status);
+    const data=await resp.json();
+    if(!data || !Array.isArray(data.publicaciones))throw Error('El archivo debe tener el campo "publicaciones" con una lista []');
+    learningPosts=data.publicaciones.filter(p=>p&&typeof p==='object').map(p=>({...p}));
+    learningStatus='ready';
+  }catch(e){learningPosts=[];learningStatus='error';learningError=e?.message||String(e);}
+  if(view==='medir')render();
+}
+function learningDownload(form){
+  if(learningStatus!=='ready'){toast('No se puede generar el archivo si no se ha podido cargar la lista actual de publicaciones.',true);return;}
+  const f=new FormData(form);
+  const required=['titulo','autor','enlace','resumen'];
+  for(const key of required)if(!String(f.get(key)||'').trim()){toast('Completa los campos obligatorios.',true);return;}
+  const url=learningUrl(f.get('enlace')); if(!url){toast('El enlace al documento debe empezar con https://',true);return;}
+  const rawImg=String(f.get('imagen')||'').trim();
+  if(rawImg && !learningUrl(rawImg)){toast('La imagen necesita una URL https:// o una ruta relativa como imagenes/foto.jpg.',true);return;}
+  const p={fecha:String(f.get('fecha')||''),titulo:String(f.get('titulo')).trim(),proyecto:String(f.get('proyecto')||'').trim(),autor:String(f.get('autor')).trim(),tipo:String(f.get('tipo')||'Diagnóstico'),resumen:String(f.get('resumen')).trim(),enlace:url,imagen:rawImg,destacado:f.get('destacado')==='on',publicar:true};
+  // Keep the newest copy and preserve all existing posts; the editor never modifies the live site.
+  const payload={version:1,publicaciones:[p,...learningPosts]};
+  const blob=new Blob([JSON.stringify(payload,null,2)+'\n'],{type:'application/json;charset=utf-8'});
+  const objectURL=URL.createObjectURL(blob),a=document.createElement('a');a.href=objectURL;a.download='publicaciones.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(objectURL),3000);
+  toast('Archivo generado. Ahora reemplaza publicaciones.json en GitHub y guarda el cambio.');
+  learningEditor=false;render();
+}
+
+function exportComments(list){
+  const all=list.flatMap(p=>(p.comments?.rows||[]).map(r=>({...r,project:p.name})));
+  const matched=all.filter(r=>(commentsOwner==='__all'||r.responsable===commentsOwner)&&
+    (!commentsSearch||clean([r.hito,r.responsable,r.comentario,r.fecha,r.project].join(' ')).includes(clean(commentsSearch))));
+  // El prefijo de texto evita que Excel ejecute expresiones escritas en comentarios al abrir el CSV.
+  const safe=v=>/^[=+@\t\r]/.test(String(v??'').trimStart())?"'"+v:v;
+  csv('comentarios_iniciativas_AF2026.csv',['Proyecto','Fecha','Hitos','Responsable','Comentarios'],matched.map(r=>[safe(r.project),safe(r.fecha),safe(r.hito),safe(r.responsable),safe(r.comentario)]));
+}
+
 function csv(filename,header,rows){const quote=s=>'"'+String(s??'').replace(/"/g,'""')+'"';const content='\ufeff'+[header,...rows].map(a=>a.map(quote).join(';')).join('\r\n');const url=URL.createObjectURL(new Blob([content],{type:'text/csv;charset=utf-8'})),a=document.createElement('a');a.href=url;a.download=filename;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);}
 function exportBudget(list){const rows=[];for(const p of list)for(const g of p.budget.groups){rows.push([p.name,g.code,g.label,g.presupuesto,g.real,g.presupuesto-g.real,'Subtotal','NO']);for(const c of g.children)rows.push([p.name,c.code,c.label,c.presupuesto,c.real,c.presupuesto-c.real,'Detalle','SÍ']);}csv('presupuesto_vs_real_por_partida.csv',['Proyecto','Código','Partida','Plan USD','Real USD','Diferencia USD','Tipo de fila','Incluir detalle en agregación'],rows);}
 function exportCash(list){const periods=filterPeriods(list);let records=[];for(const p of list)for(const g of p.cashflow.groups){const arr=g.children.length?g.children:[g];for(const ch of arr){records.push([p.name,ch.code,ch.label,ch.presupuesto,...periods.map(t=>{let i=p.cashflow.periods.findIndex(x=>(Number.isInteger(p.startYear)&&t.year!=null?(p.startYear+x.yearIndex-1===t.year&&clean(x.month)===clean(t.month)):x.id===t.period));return i<0?0:ch.values[i];})]);}}csv('flujo_caja_detalle_sin_subtotales.csv',['Proyecto','Código','Partida','Ppto OI DOP',...periods.map(t=>t.month+' '+(t.year||'P'+t.period))],records);}
@@ -568,6 +814,17 @@ function bindBody(){const list=filtersProjects();$('emptyUpload')?.addEventListe
  document.querySelectorAll('[data-collapse]').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.collapse==='budget')openBudget.clear();if(b.dataset.collapse==='cash')openCash.clear();if(b.dataset.collapse==='compare')openCompare.clear();render();}));
  $('purchaseFilter')?.addEventListener('change',e=>{purchaseFilter=e.target.value;render();});
  const input=$('searchInput');if(input){input.addEventListener('change',e=>{search=e.target.value;render();});input.addEventListener('keydown',e=>{if(e.key==='Enter'){search=input.value;render();}});}
+ $('learningPrepare')?.addEventListener('click',()=>{learningEditor=!learningEditor;render();});
+ $('learningStart')?.addEventListener('click',()=>{learningEditor=true;render();});
+ $('learningClose')?.addEventListener('click',()=>{learningEditor=false;render();});
+ $('learningRefresh')?.addEventListener('click',loadLearningPosts);
+ $('learningSearch')?.addEventListener('change',e=>{learningSearch=e.target.value;render();});
+ $('learningSearch')?.addEventListener('keydown',e=>{if(e.key==='Enter'){learningSearch=e.target.value;render();}});
+ $('learningProject')?.addEventListener('change',e=>{learningProject=e.target.value;render();});
+ $('learningOwner')?.addEventListener('change',e=>{learningOwner=e.target.value;render();});
+ $('learningType')?.addEventListener('change',e=>{learningType=e.target.value;render();});
+ $('learningForm')?.addEventListener('submit',e=>{e.preventDefault();learningDownload(e.currentTarget);});
+ $('commentsSearch')?.addEventListener('change',e=>{commentsSearch=e.target.value;render();});$('commentsOwner')?.addEventListener('change',e=>{commentsOwner=e.target.value;render();});$('exportComments')?.addEventListener('click',()=>exportComments(list));
  $('exportBudget')?.addEventListener('click',()=>exportBudget(list));$('exportCash')?.addEventListener('click',()=>exportCash(list));$('exportCompare')?.addEventListener('click',()=>exportCompare(list));
  $('exportPurchases')?.addEventListener('click',()=>{const rows=list.flatMap(p=>p.purchases.rows.map(r=>({...r,project:p.name}))).filter(r=>purchaseFilter==='__all'||r.estado===purchaseFilter);csv('seguimiento_de_compras.csv',['Proyecto','Partida','Ítem','Orden G','Estado','Proveedor','Monto DOP'],rows.map(r=>[r.project,r.partida,r.item,r.oc,statusText[r.estado],r.proveedor,r.presupuestoDOP]));});
 }
@@ -590,13 +847,22 @@ async function loadXLSX(){
   }
   throw new Error('No se pudo cargar el lector Excel. Comprueba tu conexión a internet o restricciones de red.');
 }
-async function importFiles(files){if(!files.length)return;const button=$('uploadBtn');button.disabled=true;button.textContent='Procesando…';let imported=0;
- for(const f of files){try{if(!/\.xlsx?$/i.test(f.name))throw Error('Admite .xlsx y .xls.');if(f.size>40*1024*1024)throw Error('Límite 40 MB por archivo.');await loadXLSX();const wb=window.XLSX.read(await f.arrayBuffer(),{type:'array',cellDates:true,cellFormula:true});const sheets={};for(const n of wb.SheetNames){const ws=wb.Sheets[n];const ref=window.XLSX.utils.decode_range(ws['!ref']||'A1');const fromA1={s:{r:0,c:0},e:ref.e};sheets[n]=window.XLSX.utils.sheet_to_json(ws,{header:1,raw:true,defval:null,blankrows:true,range:fromA1});}const p=parseProject(sheets,f.name);if(!Object.values(p.selected).some(Boolean))throw Error('No se reconoce ninguna de las 3 hojas.');const old=saved.find(x=>x.filename.toLowerCase()===f.name.toLowerCase());if(old&&!confirm(`Ya existe ${old.name}. ¿Actualizar sus datos?`))continue;p.id=old?.id||('ramos_'+(globalThis.crypto?.randomUUID?.()||Date.now()+'_'+imported));p.name=old?.name||p.name;p.format=old?.format||guessFormat(p.name);p.projectType=old?.projectType||guessType(p.name);p.startYear=old?.startYear||null;await storeProject(p);saved=saved.filter(x=>x.id!==p.id);saved.push(p);imported++;}catch(e){console.error(e);toast(`${f.name}: ${e.message}`,true);}}
- button.disabled=false;button.innerHTML='<span>＋</span> Cargar Excel';$('fileInput').value='';saved.sort((a,b)=>a.name.localeCompare(b.name,'es'));if(imported){preview=false;selected='__all';selectedFormat='__all';selectedType='__all';selectedYear='__all';selectedQuarter='__all';render();toast(`${imported} ${imported===1?'iniciativa importada':'iniciativas importadas'} correctamente.`);}else render();}
+async function importFiles(files){if(!files.length)return;const button=$('uploadBtn');button.disabled=true;button.textContent='Procesando…';let imported=0,lastId=null,lastColumns=null;
+ for(const f of files){try{if(!/\.xlsx?$/i.test(f.name))throw Error('Admite .xlsx y .xls.');if(f.size>40*1024*1024)throw Error('Límite 40 MB por archivo.');await loadXLSX();const wb=window.XLSX.read(await f.arrayBuffer(),{type:'array',cellDates:true,cellFormula:true});const sheets={};for(const n of wb.SheetNames){const ws=wb.Sheets[n];const ref=window.XLSX.utils.decode_range(ws['!ref']||'A1');const fromA1={s:{r:0,c:0},e:ref.e};sheets[n]=window.XLSX.utils.sheet_to_json(ws,{header:1,raw:true,defval:null,blankrows:true,range:fromA1});}const p=parseProject(sheets,f.name);
+ if(![p.selected.purchases,p.selected.budget,p.selected.cashflow].some(Boolean))throw Error('No se reconoce ninguna de las hojas principales del proyecto (BD Plan Detallado, Presupuesto Vs Real o Flujo de Caja).');
+ if(p.selected.budget){
+   const b=p.budget;
+   if(!b.groups?.length)throw Error('Presupuesto Vs Real: se encontró la hoja, pero no las partidas 1.00, 2.01, etc. No se guardó esta lectura. Verifica si los códigos son números/texto en A, B o C.');
+   if(!((b.totals?.presupuesto||0)||(b.totals?.real||0)) &&
+      (b.summaryCategories||[]).some(r=>(r.presupuesto||0)||(r.real||0)))
+     throw Error('Presupuesto Vs Real: hay montos en categorías, pero el total aparece en cero. No se guardó esta lectura para evitar cifras incorrectas.');
+ }
+const old=saved.find(x=>x.filename.toLowerCase()===f.name.toLowerCase());if(old&&!confirm(`Ya existe ${old.name}. ¿Actualizar sus datos?`))continue;p.id=old?.id||('ramos_'+(globalThis.crypto?.randomUUID?.()||Date.now()+'_'+imported));p.name=old?.name||p.name;p.format=old?.format||guessFormat(p.name);p.projectType=old?.projectType||guessType(p.name);p.startYear=old?.startYear||null;await storeProject(p);saved=saved.filter(x=>x.id!==p.id);saved.push(p);imported++;lastId=p.id;lastColumns=p.budget?.detectedColumns||null;}catch(e){console.error(e);toast(`${f.name}: ${e.message}`,true);}}
+ button.disabled=false;button.innerHTML='<span>＋</span> Cargar Excel';$('fileInput').value='';saved.sort((a,b)=>a.name.localeCompare(b.name,'es'));if(imported){preview=false;selected=imported===1?lastId:'__all';selectedFormat='__all';selectedType='__all';selectedYear='__all';selectedQuarter='__all';render();toast(`${imported} ${imported===1?'iniciativa importada':'iniciativas importadas'} correctamente.${lastColumns?' Partida '+lastColumns.partida+' / '+lastColumns.nombre+', plan '+lastColumns.presupuesto+', real '+lastColumns.real+'.':''}`);}else render();}
 function attachShell(){document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>{view=b.dataset.view;search='';$('sidebar').classList.remove('open');render();window.scrollTo(0,0);}));
  $('menuBtn').addEventListener('click',()=>$('sidebar').classList.toggle('open'));$('uploadBtn').addEventListener('click',()=>$('fileInput').click());$('fileInput').addEventListener('change',e=>importFiles([...e.target.files]));$('printBtn').addEventListener('click',()=>window.print());$('manageBtn').addEventListener('click',openModal);$('modalClose').addEventListener('click',closeModal);$('modalBackdrop').addEventListener('click',e=>{if(e.target.id==='modalBackdrop')closeModal();});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
  $('projectSelect').addEventListener('change',e=>{selected=e.target.value;render();});$('formatSelect').addEventListener('change',e=>{selectedFormat=e.target.value;render();});$('typeSelect').addEventListener('change',e=>{selectedType=e.target.value;render();});$('yearSelect').addEventListener('change',e=>{selectedYear=e.target.value;render();});$('quarterSelect').addEventListener('change',e=>{selectedQuarter=e.target.value;render();});}
-async function init(){attachShell();try{saved=await allProjects();saved.sort((a,b)=>a.name.localeCompare(b.name,'es'));if(saved.length)preview=false;}catch(e){storageOk=false;toast('El navegador no permite guardar datos localmente: '+e.message,true);}render();}
+async function init(){attachShell();try{saved=await allProjects();saved.sort((a,b)=>a.name.localeCompare(b.name,'es'));if(saved.length)preview=false;}catch(e){storageOk=false;toast('El navegador no permite guardar datos localmente: '+e.message,true);}render();loadLearningPosts();}
 init();
 
 </script>
