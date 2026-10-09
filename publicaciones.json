@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "publicaciones": [
+    {
+      "fecha": "",
+      "titulo": "m",
+      "proyecto": "nml",
+      "autor": "lk",
+      "tipo": "Diagnóstico",
+      "resumen": "ompmpm",
+      "enlace": "https://anapeguero.github.io/DASHBOARD-INAF2026/lm",
+      "imagen": "https://www.bing.com/images/search?view=detailV2&ccid=GJE8xv77&id=08980078BB63CE827DF802DCBBDFDD9D595F6D0F&thid=OIP.GJE8xv77dVWVuUs0CEUKIwHaEL&mediaurl=https%3a%2f%2flookaside.instagram.com%2fseo%2fgoogle_widget%2fcrawler%2f%3fmedia_id%3d3072075961253940944&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.18913cc6fefb755595b94b3408450a23%3frik%3dD21fWZ3d37vcAg%26pid%3dImgRaw%26r%3d0&exph=720&expw=1276&q=spersirena&FORM=IRPRST&ck=0EF5E62A67F90446F5320CD31402E6AD&selectedIndex=1&itb=0",
+      "destacado": false,
+      "publicar": true
+    }
+  ]
+}
