@@ -129,12 +129,11 @@ function parsePurchases(rows){
   }
   return {rows:out,warnings:[]};
 }
-/* Lector financiero flexible: nombres en C, códigos en B o C;
-   importes detectados en E/G, G/H o en las columnas numéricas equivalentes. */
+/* Lector financiero de Iniciativas AF2026.
+   Soporta formatos A/B+D/F, B/C+E/G y C+G/H sin alterar la hoja de origen. */
 function codeInfo(value){
-  // SheetJS devuelve 2.00 como número 2 si la celda es numérica.
-  // Se acepta código separado en B y descripción en C, o ambos dentro de C.
-  const m=txt(value).replace(/[\u00a0\u2007\u202f]/g,' ').match(/^\s*(\d{1,3})(?:[.,](\d{1,3}))?(?=\s|$|\b)/);
+  const raw=txt(value).replace(/[\u00a0\u2007\u202f]/g,' ').trim();
+  const m=raw.match(/^(\d{1,3})(?:[.,](\d{1,3}))?(?=\s|$)/);
   if(!m)return null;
   const main=String(Number(m[1]));
   if(!m[2]||/^0+$/.test(m[2]))return {code:`${main}.00`,main,kind:'parent'};
@@ -144,129 +143,145 @@ function codeInfo(value){
 const amount=(r,index)=>numeric(at(r,index))??0;
 const first=(rows,pattern,limit=35)=>rows.findIndex((r,i)=>i<limit&&pattern.test(clean((r||[]).join(' '))));
 const budgetCategoryName=s=>/^(equipamiento|edificacion|terreno|gastos?)$/.test(clean(s));
-function detectBudgetColumns(rows){
-  const totalLine=first(rows,/total general estimado/,100);
-  const headerLimit=Math.min(rows.length,Math.max(140,totalLine+55));
-  const sample=[];
-  let codedB=0,codedC=0;
-  for(let i=0;i<headerLimit;i++){
-    const r=rows[i]||[];
-    const b=codeInfo(at(r,1)),c=codeInfo(at(r,2));
-    const cat=budgetCategoryName(at(r,2)) || budgetCategoryName(at(r,1));
-    if(b&&txt(at(r,2)))codedB++;
-    if(c)codedC++;
-    if(b||c||cat)sample.push(r);
+const excelCol=i=>String.fromCharCode(65+i);
+function financialCodeAndName(row){
+  for(let col=0;col<=3;col++){
+    const value=at(row,col),info=codeInfo(value);
+    if(!info)continue;
+    const source=txt(value).replace(/[\u00a0\u2007\u202f]/g,' ').trim();
+    // Caso 2.01 Edificación - Obra Civil: código y nombre unidos.
+    const same=source.replace(/^\d{1,3}(?:[.,]\d{1,3})?\s*/,'').trim();
+    if(same && /[a-záéíóúñ]/i.test(same))return {...info,label:same,codeColumn:col,nameColumn:col};
+    // Casos A/B o B/C: el código va separado del nombre.
+    for(let next=col+1;next<=Math.min(col+2,4);next++){
+      const label=txt(at(row,next));
+      if(!label||numeric(label)!==null||codeInfo(label)||/^(usd|dop|rd|us\$|rd\$|\$|—|-)\s*\$?$/i.test(label))continue;
+      if(/^(presupuestado|presupuesto|real|estimado|total|subtotal|fecha)/i.test(clean(label)))continue;
+      if(!/[a-záéíóúñ]/i.test(label))continue;
+      return {...info,label,codeColumn:col,nameColumn:next};
+    }
   }
-  const templateBC=codedB>codedC;
-  // En la plantilla corporativa hay normalmente una celda de divisa antes del importe.
-  const candidates=[
-    {plan:4,real:6,name:'E/G'},
-    {plan:6,real:7,name:'G/H'},
-    {plan:5,real:7,name:'F/H'},
-    {plan:3,real:5,name:'D/F'},
-    {plan:4,real:7,name:'E/H'},
-    {plan:5,real:6,name:'F/G'}
-  ];
-  // Para diseños no estándar, identificar parejas numéricas en el total o los detalles.
-  const allPairs=[];
-  for(let a=3;a<=12;a++)for(let b=a+1;b<=Math.min(13,a+5);b++)allPairs.push({plan:a,real:b,name:`${String.fromCharCode(65+a)}/${String.fromCharCode(65+b)}`});
-  for(const pair of allPairs)if(!candidates.some(x=>x.plan===pair.plan&&x.real===pair.real))candidates.push(pair);
-  const tr=totalLine>=0?rows[totalLine]||[]:null;
-  const titlePositions=[];
-  for(let i=0;i<Math.min(36,rows.length);i++)for(let col=0;col<Math.min(15,(rows[i]||[]).length);col++){
-    const v=clean(at(rows[i],col));
-    if(v==='presupuestado'||v==='presupuesto'||v==='plan')titlePositions.push({type:'plan',col});
-    if(v==='real'||v==='ejecutado')titlePositions.push({type:'real',col});
-  }
-  const score=x=>{
-    let score=0;
-    if(tr){
-      const a=numeric(at(tr,x.plan)),b=numeric(at(tr,x.real));
-      if(a!==null&&b!==null)score+=a!==0||b!==0?100:24;
-      else if(a!==null||b!==null)score+=12;
-      if(a!==null&&a!==0)score+=20;
-      if(b!==null&&b!==0)score+=20;
-    }
-    let positive=0,nonNull=0,both=0,bothPositive=0;
-    for(const r of sample){
-      const a=numeric(at(r,x.plan)),b=numeric(at(r,x.real));
-      if(a!==null)nonNull++;
-      if(b!==null)nonNull++;
-      if(a!==null&&b!==null){both++;if(a!==0||b!==0)bothPositive++;}
-      if(a!==null&&a!==0)positive++;
-      if(b!==null&&b!==0)positive++;
-    }
-    score+=Math.min(positive,60)*2.5+Math.min(both,50)*0.7+Math.min(bothPositive,50)*8+Math.min(nonNull,100)*0.1;
-    if(templateBC&&x.plan===4&&x.real===6)score+=12;
-    if(!templateBC&&x.plan===6&&x.real===7)score+=12;
-    for(const p of titlePositions){
-      const col=p.type==='plan'?x.plan:x.real;
-      // El encabezado fusionado puede estar en el mismo campo o 1/2 columnas a su izquierda.
-      if(col>=p.col&&col<=p.col+2)score+=3;
-    }
-    return score;
-  };
-  const sorted=candidates.map(c=>({...c,score:score(c)})).sort((a,b)=>b.score-a.score);
-  return {...sorted[0],totalLine,scores:sorted.slice(0,3)};
+  return null;
 }
+function findBudgetAmountColumns(rows){
+  const totalLine=first(rows,/total general estimado/,120);
+  const tr=totalLine>=0?rows[totalLine]||[]:[];
+  const sample=[];
+  let codes=[],labelColumns=[];
+  for(let i=0;i<Math.min(rows.length,450);i++){
+    const r=rows[i]||[];
+    const item=financialCodeAndName(r);
+    let category=null;
+    for(let j=0;j<=3;j++)if(budgetCategoryName(at(r,j)))category=j;
+    if(item){codes.push(item.codeColumn);labelColumns.push(item.nameColumn);sample.push(r);}
+    else if(category!==null)sample.push(r);
+  }
+  const codeColumn=codes.length?codes.sort((a,b)=>a-b).reduce((best)=>best):null;
+  const currencyColumns=[];
+  const headerPositions={plan:[],real:[]};
+  for(let row=0;row<Math.min(rows.length,50);row++){
+    const r=rows[row]||[];
+    for(let col=0;col<Math.min(r.length,15);col++){
+      const value=clean(at(r,col));
+      if(value==='presupuestado'||value==='presupuesto'||value==='plan')headerPositions.plan.push(col);
+      if(value==='real'||value==='ejecutado')headerPositions.real.push(col);
+    }
+  }
+  // Las columnas monetarias no siempre coinciden con la posición del encabezado,
+  // porque se usan columnas intercaladas para 'USD$'.
+  const candidates=[];
+  for(let p=2;p<=13;p++)for(let q=p+1;q<=Math.min(p+6,14);q++)candidates.push({plan:p,real:q,name:`${excelCol(p)}/${excelCol(q)}`});
+  const firstData=Math.min(rows.length,500);
+  const rowQuality=r=>{
+    const c=financialCodeAndName(r);
+    return c&&c.kind==='parent'?3:c?1:0;
+  };
+  const scored=candidates.map(x=>{
+    let score=0,paired=0,numericCount=0,positive=0;
+    const a=numeric(at(tr,x.plan)),b=numeric(at(tr,x.real));
+    if(a!==null && b!==null){score+=900; if(a!==0&&b!==0)score+=150;}
+    else if(a!==null||b!==null)score-=200;
+    // En la fila del gran total puede haber texto monetario separado antes del valor.
+    if(a!==null&&a!==0)score+=100;
+    if(b!==null&&b!==0)score+=100;
+    const headerScore=(type,c)=>{
+      if(!headerPositions[type].length)return 0;
+      let best=-60;
+      for(const h of headerPositions[type]){
+        // Una cabecera fusionada abarca su celda y puede tener importe 1 o 2 columnas después.
+        const dist=c-h;
+        best=Math.max(best,dist===0?80:dist===1?105:dist===2?55:-55);
+      }
+      return best;
+    };
+    score+=headerScore('plan',x.plan)+headerScore('real',x.real);
+    for(let i=0;i<firstData;i++){
+      const r=rows[i]||[],quality=rowQuality(r);
+      if(!quality && ![...Array(4)].some((_,j)=>budgetCategoryName(at(r,j))))continue;
+      const va=numeric(at(r,x.plan)),vb=numeric(at(r,x.real));
+      if(va!==null)numericCount++;
+      if(vb!==null)numericCount++;
+      if(va!==null&&va!==0)positive++;
+      if(vb!==null&&vb!==0)positive++;
+      if(va!==null&&vb!==null){paired++; if(va!==0||vb!==0)score+=quality>=3?5:2;}
+    }
+    score+=Math.min(paired,35)*5+Math.min(positive,70)*2+Math.min(numericCount,90)*.1;
+    // Penaliza lecturas en las que el único valor financiero cae en una columna.
+    if(a!==null&&b===null)score-=120;
+    if(b!==null&&a===null)score-=120;
+    return {...x,score};
+  }).sort((a,b)=>b.score-a.score);
+  return {...scored[0],totalLine,codeColumn,scores:scored.slice(0,3)};
+}
+function detectBudgetColumns(rows){return findBudgetAmountColumns(rows);}
 function budgetItem(r,rowIndex,planIndex,realIndex){
-  const codeB=codeInfo(at(r,1));
-  const desc=txt(at(r,2));
-  const codeC=codeInfo(desc);
-  const info=codeB||codeC;
-  if(!info)return null;
-  const label=codeC&&(!codeB||codeB.code===codeC.code)
-    ?desc.replace(/^\s*\d{1,3}(?:[.,]\d{1,3})?\s*/, '').trim()||desc
-    :desc;
-  return {...info,label:label||`Partida ${info.code}`,presupuesto:amount(r,planIndex),real:amount(r,realIndex),row:rowIndex+1};
+  const found=financialCodeAndName(r);
+  if(!found)return null;
+  return {...found,presupuesto:amount(r,planIndex),real:amount(r,realIndex),row:rowIndex+1};
 }
 function parseBudget(rows){
   const columns=detectBudgetColumns(rows);
   const totalLine=columns.totalLine;
-  const summary=totalLine<0?null:{presupuesto:numeric(at(rows[totalLine],columns.plan)),real:numeric(at(rows[totalLine],columns.real))};
+  const grandRow=totalLine>=0?(rows[totalLine]||[]):null;
+  const summary=grandRow?{presupuesto:numeric(at(grandRow,columns.plan)),real:numeric(at(grandRow,columns.real))}:null;
   const warnings=[],summaryCategories=[];
-  for(let i=0;i<Math.min(rows.length,70);i++){
+  for(let i=0;i<Math.min(rows.length,85);i++){
     const r=rows[i]||[];
-    const label=txt(at(r,2))||txt(at(r,1));
-    if(budgetCategoryName(label))summaryCategories.push({label,presupuesto:amount(r,columns.plan),real:amount(r,columns.real)});
+    for(let col=0;col<=3;col++){
+      const label=txt(at(r,col));
+      if(budgetCategoryName(label)){
+        summaryCategories.push({label,presupuesto:amount(r,columns.plan),real:amount(r,columns.real)});
+        break;
+      }
+    }
   }
   const headerStart=first(rows,/edificacion, instalaciones y equipamientos|edificacion instalaciones y equipamientos/,120);
-  const start=headerStart<0?0:headerStart+1;
   const details=[];
-  for(let i=start;i<rows.length;i++){
+  // Si la plantilla no tiene el encabezado sectorial, leer desde la primera fila.
+  for(let i=Math.max(0,headerStart+1);i<rows.length;i++){
     const item=budgetItem(rows[i]||[],i,columns.plan,columns.real);
     if(item)details.push(item);
   }
   const groups=buildGroups(details);
-  if(!groups.length)warnings.push('No se reconocieron las partidas financieras. Se esperan códigos en B y descripción en C, o código y descripción juntos en C.');
-  const groupTotals={presupuesto:groups.reduce((sum,g)=>sum+g.presupuesto,0),real:groups.reduce((sum,g)=>sum+g.real,0)};
-  const catTotals={presupuesto:summaryCategories.reduce((sum,g)=>sum+g.presupuesto,0),real:summaryCategories.reduce((sum,g)=>sum+g.real,0)};
+  if(!groups.length)warnings.push('No se reconocieron partidas numeradas. Comprueba que el archivo tiene códigos como 1.00 y 2.01 en A, B o C y descripciones en la columna siguiente.');
+  const byParents={presupuesto:groups.reduce((s,g)=>s+g.presupuesto,0),real:groups.reduce((s,g)=>s+g.real,0)};
+  const byCats={presupuesto:summaryCategories.reduce((s,g)=>s+g.presupuesto,0),real:summaryCategories.reduce((s,g)=>s+g.real,0)};
   const official=summary&&summary.presupuesto!==null&&summary.real!==null;
-  // No tomar un TOTAL GENERAL de 0 cuando la hoja contiene categorías/partidas con montos.
-  const officialUseful=official&&(Math.abs(summary.presupuesto)+Math.abs(summary.real)>0 ||
-    (Math.abs(groupTotals.presupuesto)+Math.abs(groupTotals.real)+Math.abs(catTotals.presupuesto)+Math.abs(catTotals.real)===0));
-  const fallback=groups.length&&Math.abs(groupTotals.presupuesto)+Math.abs(groupTotals.real)>0
-    ? {...groupTotals,source:'partidas_sin_duplicar'}
-    : {...catTotals,source:'resumen_de_categorias'};
+  const officialUseful=official && (Math.abs(summary.presupuesto)+Math.abs(summary.real)>0 ||
+     Math.abs(byParents.presupuesto)+Math.abs(byParents.real)+Math.abs(byCats.presupuesto)+Math.abs(byCats.real)===0);
+  const fallback=groups.length&&(byParents.presupuesto||byParents.real)?{...byParents,source:'partidas_sin_duplicar'}:{...byCats,source:'resumen_de_categorias'};
   const totals=officialUseful?{presupuesto:summary.presupuesto,real:summary.real,source:'total_general'}:fallback;
-  if(!officialUseful&&totalLine>=0&&(totals.presupuesto||totals.real))warnings.push('No se pudo leer el TOTAL GENERAL ESTIMADO en ambas columnas; se usó el total de partidas o categorías sin duplicar.');
-  const totalAmount=Math.abs(totals.presupuesto)+Math.abs(totals.real);
-  // Detecta importes en otras columnas para no presentar cifras vacías como válidas.
-  const sampleNumbers=rows.slice(0,Math.min(rows.length,150)).reduce((sum,r)=>{
-    if(!r||!(codeInfo(at(r,1))||codeInfo(at(r,2))||budgetCategoryName(at(r,2))||/total general estimado/.test(clean(r.join(' ')))))return sum;
-    return sum+(r.slice(3,14).some(v=>{const n=numeric(v);return n!==null&&Math.abs(n)>0;})?1:0);
-  },0);
-  if(totalAmount===0&&sampleNumbers>0)warnings.push('Se encontraron montos en el Excel, pero no se pudieron leer como presupuesto y real. Revisa la estructura de columnas o vuelve a importar el archivo.');
-  if(!summaryCategories.some(c=>Math.abs(c.presupuesto)+Math.abs(c.real)>0)&&totalAmount>0&&summaryCategories.length){
-    warnings.push('El Resumen de Partidas no contiene importes legibles en las columnas detectadas; la matriz usa las partidas de detalle.');
-  }
+  if(!officialUseful&&totalLine>=0&&(totals.presupuesto||totals.real))warnings.push('El TOTAL GENERAL ESTIMADO estaba vacío o en cero; el total se calculó desde partidas sin duplicarlas.');
+  if(!groups.length&&(totals.presupuesto||totals.real))warnings.push('Se leyó el total general pero NO se identificaron las subpartidas. Revisa la importación.');
   if(officialUseful&&groups.length){
-    const gapP=Math.abs(summary.presupuesto-groupTotals.presupuesto),gapR=Math.abs(summary.real-groupTotals.real);
-    const tol=Math.max(1,Math.abs(summary.presupuesto)*0.005,Math.abs(summary.real)*0.005);
-    if(gapP>tol||gapR>tol)warnings.push('TOTAL GENERAL ESTIMADO y la suma de partidas no coinciden. Se muestra el total oficial y cada subtotal una sola vez.');
+    const gapP=Math.abs(summary.presupuesto-byParents.presupuesto),gapR=Math.abs(summary.real-byParents.real);
+    const tol=Math.max(1,Math.abs(summary.presupuesto)*.005,Math.abs(summary.real)*.005);
+    if(gapP>tol||gapR>tol)warnings.push('El TOTAL GENERAL ESTIMADO difiere de las partidas principales. Se muestra el total original y no se duplican subtotales.');
   }
-  return {groups,totals,warnings,summary,summaryCategories,
-    detectedColumns:{partida:details.some(d=>codeInfo(at(rows[d.row-1],1)))?'B':'C',nombre:'C',presupuesto:columns.name.split('/')[0],real:columns.name.split('/')[1],totalRow:totalLine+1}};
+  const detectedColumns={partida:details.length?excelCol(details[0].codeColumn):'No detectada',
+    nombre:details.length?excelCol(details[0].nameColumn):'No detectada',
+    presupuesto:excelCol(columns.plan),real:excelCol(columns.real),totalRow:totalLine+1};
+  return {groups,totals,warnings,summary,summaryCategories,detectedColumns};
 }
 function buildGroups(details){
   const result=[],map=new Map();
@@ -279,15 +294,15 @@ function buildGroups(details){
       let g=map.get(d.main);
       if(!g){g={code:`${d.main}.00`,main:d.main,kind:'parent',label:`Partida ${d.main}`,presupuesto:0,real:0,children:[],synthetic:true};map.set(d.main,g);result.push(g);}
       const existing=g.children.find(c=>c.code===d.code);
-      if(existing)Object.assign(existing,d);else g.children.push({...d});
+      if(existing)Object.assign(existing,d); else g.children.push({...d});
     }
   }
   for(const g of result){
     if(g.children.length){
-      const childPlan=g.children.reduce((sum,c)=>sum+c.presupuesto,0);
-      const childReal=g.children.reduce((sum,c)=>sum+c.real,0);
-      if(g.synthetic||(!g.presupuesto&&childPlan))g.presupuesto=childPlan;
-      if(g.synthetic||(!g.real&&childReal))g.real=childReal;
+      const plan=g.children.reduce((s,c)=>s+c.presupuesto,0);
+      const real=g.children.reduce((s,c)=>s+c.real,0);
+      if(g.synthetic||(!g.presupuesto&&plan))g.presupuesto=plan;
+      if(g.synthetic||(!g.real&&real))g.real=real;
     }
     g.diferencia=g.presupuesto-g.real;
     for(const c of g.children)c.diferencia=c.presupuesto-c.real;
@@ -361,7 +376,7 @@ function parseProject(sheets,filename){
   const budget=selected.budget?parseBudget(sheets[selected.budget]):{groups:[],totals:{presupuesto:0,real:0,source:'none'},warnings:['Falta la hoja Presupuesto Vs Real.']};
   const cashflow=selected.cashflow?parseCashflow(sheets[selected.cashflow]):{groups:[],periods:[],totals:[],warnings:['Falta la hoja Flujo de Caja.']};
   for(const w of [...purchases.warnings,...budget.warnings,...cashflow.warnings])warnings.push(w);
-  return {name:filename.replace(/\.xlsx?$/i,'').replace(/[_-]/g,' ').trim(),filename,selected,purchases,budget,cashflow,warnings,importedAt:new Date().toISOString(),startYear:null,parserVersion:4};
+  return {name:filename.replace(/\.xlsx?$/i,'').replace(/[_-]/g,' ').trim(),filename,selected,purchases,budget,cashflow,warnings,importedAt:new Date().toISOString(),startYear:null,parserVersion:5};
 }
 function aggregate(projects){
   const k={totalItems:0,colocada:0,stock:0,pendiente:0,sin_info:0,revisar:0,presupuesto:0,real:0,projectCount:projects.length};
@@ -448,7 +463,7 @@ function syncFilters(){const all=displayProjects();fillSelect('projectSelect',[[
  $('sideUpdate').textContent=saved.length?new Date(Math.max(...saved.map(x=>new Date(x.importedAt||0).getTime()||0))).toLocaleDateString('es-DO'):'Sin archivos';
  $('dataStatus').textContent=saved.length?`${saved.length} ${saved.length===1?'iniciativa cargada':'iniciativas cargadas'} · Procesamiento local · Año/trimestre filtran el flujo`:'Vista de demostración · Importa tus Excel para utilizar cifras reales';
 }
-function warnings(list){let warn=[];for(const p of list)if(!p.demo){if((p.parserVersion||1)<4)warn.push(`${p.name}: vuelve a importar este Excel para aplicar la corrección de presupuesto y la agrupación por partidas.`);warn.push(...(p.warnings||[]).map(s=>`${p.name}: ${s}`));}return warn.map(s=>`<div class="warning">${esc(s)}</div>`).join('');}
+function warnings(list){let warn=[];for(const p of list)if(!p.demo){if((p.parserVersion||1)<5)warn.push(`${p.name}: vuelve a importar este Excel para reconocer los códigos y montos de las partidas financieras.`);warn.push(...(p.warnings||[]).map(s=>`${p.name}: ${s}`));}return warn.map(s=>`<div class="warning">${esc(s)}</div>`).join('');}
 function render(){document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===view));syncFilters();const list=filtersProjects();$('notices').innerHTML=warnings(list);
  if(!displayProjects().length){$('dashboardBody').innerHTML=`<div class="empty-state"><h2>Empieza cargando tus iniciativas</h2><p>Selecciona uno o varios archivos Excel con las hojas BD Plan Detallado, Presupuesto Vs Real y Flujo de Caja. También puedes activar la vista de demostración.</p><button id="emptyUpload">＋ Cargar Excel</button> <button id="enableDemo" class="control-btn">Ver demostración</button></div>`;bindBody();return;}
  if(list.length===0){$('dashboardBody').innerHTML=`<div class="empty-state"><h2>No hay proyectos con esos filtros</h2><p>Cambia Proyecto, Formato o Tipo de proyecto en la cabecera.</p></div>`;return;}
